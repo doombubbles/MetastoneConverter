@@ -4,7 +4,7 @@ public class Card {
 
    static final List<String> POTENTIAL_ATTRIBUTES = Arrays.asList("TAUNT", "LIFESTEAL", "RUSH", "CHARGE", "ECHO", "POISONOUS", "COMBO",
            "STEALTH", "WINDFURY", "DIVINE_SHIELD", "CHARGE", "CANNOT_ATTACK");
-   static final List<String> BAD_WORDS = Arrays.asList("gain", "have", "your", "has");
+   static final List<String> BAD_WORDS = Arrays.asList("gain", "have", "your", "has", "a");
 
    int mana = 0;
    int attack = -1;
