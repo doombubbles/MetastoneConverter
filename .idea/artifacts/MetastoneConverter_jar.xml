@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" name="MetastoneConverter:jar">
-    <output-path>$PROJECT_DIR$/../../metastone/cards/witchwood/</output-path>
+    <output-path>$USER_HOME$/Documents/metastone/cards/witchwood</output-path>
     <root id="archive" name="MetastoneConverter.jar">
       <element id="module-output" name="MetastoneConverter" />
     </root>

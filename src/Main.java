@@ -22,11 +22,11 @@ public class Main {
             Clipboard clipboard = Toolkit.getDefaultToolkit().getSystemClipboard();
             input = new Scanner((String) clipboard.getContents(null).getTransferData(DataFlavor.stringFlavor));
         } catch (UnsupportedFlavorException e) {
-            System.out.println("Not a String copied!");
+            JOptionPane.showMessageDialog(null, "Not a String copied!");
             e.printStackTrace();
             return;
         } catch (IOException e) {
-            System.out.println("I don't even know");
+            JOptionPane.showMessageDialog(null, "I don't even know");
             e.printStackTrace();
             return;
         }
@@ -89,6 +89,9 @@ public class Main {
         if (card.type.equalsIgnoreCase("Minion")) {
             output.println("    \"baseAttack\": " + card.attack + ",");
             output.println("    \"baseHp\": " + card.health + ",");
+        } else if (card.type.equalsIgnoreCase("weapon")) {
+            output.println("    \"damage\": " + card.attack + ",");
+            output.println("    \"durability\": " + card.durability + ",");
         }
         output.println("    \"heroClass\": \"" + card.heroClass.toUpperCase() + "\",");
         output.println("    \"rarity\": \"" + card.rarity.toUpperCase() + "\",");

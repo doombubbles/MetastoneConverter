@@ -4,14 +4,15 @@ public class Card {
 
    static final List<String> POTENTIAL_ATTRIBUTES = Arrays.asList("TAUNT", "LIFESTEAL", "RUSH", "CHARGE", "ECHO", "POISONOUS", "COMBO",
            "STEALTH", "WINDFURY", "DIVINE_SHIELD", "CHARGE", "CANNOT_ATTACK");
-   static final List<String> BAD_WORDS = Arrays.asList("gain", "have", "your", "has", "a");
+   static final List<String> BAD_WORDS = Arrays.asList("gain", "have", "your", "has", "a", "it", "with", "friendly", "enemy");
 
    int mana = 0;
    int attack = -1;
    int health = -1;
+   int durability = -1;
    String name = "";
    String tribe = "";
-   String type = "";
+   String type = "NONE";
    String rarity = "";
    String heroClass = "";
    String text = "";
@@ -31,6 +32,8 @@ public class Card {
                 attack = Integer.parseInt(line.substring(line.indexOf(":") + 2));
             } else if (line.toLowerCase().startsWith("health") || line.toLowerCase().startsWith("hp") || line.toLowerCase().startsWith("defense")) {
                 health = Integer.parseInt(line.substring(line.indexOf(":") + 2));
+            } else if (line.toLowerCase().startsWith("durability")) {
+                durability = Integer.parseInt(line.substring(line.indexOf(":") + 2));
             } else if (line.toLowerCase().startsWith("tribe") || line.toLowerCase().startsWith("race")) {
                 tribe = line.substring(line.indexOf(":") + 2);
             } else if (line.toLowerCase().startsWith("rar")) {
