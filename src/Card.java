@@ -64,13 +64,11 @@ public class Card {
             } else if (token.equalsIgnoreCase("Deathrattle:")) {
                 deathrattle = true;
                 attributes.putIfAbsent("DEATHRATTLES", "true");
-            } else if (token.equalsIgnoreCase("After") || token.equalsIgnoreCase("Whenever") || token.equalsIgnoreCase("While")) {
+            } else if (token.equalsIgnoreCase("After") || token.equalsIgnoreCase("Whenever") || token.equalsIgnoreCase("While") || token.equalsIgnoreCase("At")) {
                 trigger = true;
             }
             for (String attribute : POTENTIAL_ATTRIBUTES) {
-                if (token.equalsIgnoreCase(attribute.replace("_", " ") + ".")) {
-                    attributes.putIfAbsent(attribute, "true");
-                } else if (token.equalsIgnoreCase(attribute.replace("_", " "))) {
+                if (token.equalsIgnoreCase(attribute.replace("_", " ") + ".") || token.equalsIgnoreCase(attribute.replace("_", " "))) {
                     if (i == 0) {
                         attributes.putIfAbsent(attribute, "true");
                     } else if (i > 0) {

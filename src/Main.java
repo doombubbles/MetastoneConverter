@@ -47,7 +47,7 @@ public class Main {
             String token = textLine.next();
             if (token.equalsIgnoreCase("divine") && textLine.hasNext()) {
                 String nextToken = textLine.next();
-                if (nextToken.equalsIgnoreCase("shield")) {
+                if (nextToken.equalsIgnoreCase("shield") || nextToken.equalsIgnoreCase("shield.")) {
                     token = "Divine Shield";
                 } else tokens.add(nextToken);
             } else if ((token.equalsIgnoreCase("can't") || token.equalsIgnoreCase("cant")) && textLine.hasNext()) {
