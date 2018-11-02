@@ -3,8 +3,8 @@ import java.util.*;
 public class Card {
 
    static final List<String> POTENTIAL_ATTRIBUTES = Arrays.asList("TAUNT", "LIFESTEAL", "RUSH", "CHARGE", "ECHO", "POISONOUS", "COMBO",
-           "STEALTH", "WINDFURY", "DIVINE_SHIELD", "CHARGE", "CANNOT_ATTACK");
-   static final List<String> BAD_WORDS = Arrays.asList("gain", "have", "your", "has", "a", "it", "with", "friendly", "enemy");
+           "STEALTH", "WINDFURY", "DIVINE_SHIELD", "CHARGE", "CANNOT_ATTACK", "MAGNETIC", "UNTARGETABLE_BY_SPELLS");
+   static final List<String> BAD_WORDS = Arrays.asList("gain", "have", "your", "has", "a", "it", "with", "friendly", "enemy", "and");
 
    int mana = 0;
    int attack = -1;
@@ -20,6 +20,7 @@ public class Card {
     boolean battlecry = false;
     boolean deathrattle = false;
     boolean trigger = false;
+    boolean combo = false;
     Map<String, String> attributes = new HashMap<>();
 
     Card(Scanner input) {
@@ -39,13 +40,38 @@ public class Card {
             } else if (line.toLowerCase().startsWith("rar")) {
                 rarity = line.substring(line.indexOf(":") + 2);
             } else if (line.toLowerCase().startsWith("class")) {
-                heroClass = line.substring(line.indexOf(":") + 2);
+                heroClass = convertHeroClass(line.substring(line.indexOf(":") + 2));
             } else if (line.toLowerCase().startsWith("text")) {
                 text = line.substring(line.indexOf(":") + 2);
             } else if (line.toLowerCase().startsWith("type")) {
                 type = line.substring(line.indexOf(":") + 2);
             }
         }
+    }
+
+    public String convertHeroClass(String s) {
+        s = s.toUpperCase();
+        switch (s) {
+            case "PALADIN":
+                return "GOLD";
+            case "WARLOCK":
+                return "VIOLET";
+            case "MAGE":
+                return "BLUE";
+            case "SHAMAN":
+                return "SILVER";
+            case "DRUID":
+                return "BROWN";
+            case "PRIEST":
+                 return "WHITE";
+            case "HUNTER":
+                return "GREEN";
+            case "WARRIOR":
+                return "RED";
+            case "ROGUE":
+                return "BLACK";
+        }
+        return s;
     }
 
     public void findRelevantBits(List<String> tokens) {
@@ -66,9 +92,18 @@ public class Card {
                 attributes.putIfAbsent("DEATHRATTLES", "true");
             } else if (token.equalsIgnoreCase("After") || token.equalsIgnoreCase("Whenever") || token.equalsIgnoreCase("While") || token.equalsIgnoreCase("At")) {
                 trigger = true;
+            } else if (token.startsWith("Overload:") || token.startsWith("overload:")) {
+                attributes.put("OVERLOAD", token.substring(token.indexOf(" ") + 1));
+            } else if (token.startsWith("Spell Damage")) {
+                attributes.put("SPELL_DAMAGE", token.substring(token.indexOf("+") + 1));
+            } else if (token.equalsIgnoreCase("Combo:")) {
+                battlecry = true;
+                combo = true;
             }
             for (String attribute : POTENTIAL_ATTRIBUTES) {
-                if (token.equalsIgnoreCase(attribute.replace("_", " ") + ".") || token.equalsIgnoreCase(attribute.replace("_", " "))) {
+                if (token.equalsIgnoreCase(attribute.replace("_", " ") + ".")
+                        || token.equalsIgnoreCase(attribute.replace("_", " ") + ",")
+                        || token.equalsIgnoreCase(attribute.replace("_", " "))) {
                     if (i == 0) {
                         attributes.putIfAbsent(attribute, "true");
                     } else if (i > 0) {
